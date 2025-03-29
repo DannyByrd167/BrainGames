@@ -9,8 +9,22 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-//        ColorMatchView()
-        ReactionTimeView()
+        NavigationStack {
+            VStack {
+                NavigationLink("Color match") {
+                    ColorMatchView()
+                }
+                
+                NavigationLink("Reaction time") {
+                    ReactionTimeView()
+                }
+                
+                NavigationLink("Grid fill") {
+                    GridView()
+                        .navigationBarBackButtonHidden()
+                }
+            }
+        }
     }
 }
 
