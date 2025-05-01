@@ -9,6 +9,20 @@ import Foundation
 import SwiftUI
 
 class GridFillGrids {
+    private let colors: [Color] = [
+        .red,
+        .green,
+        .blue,
+        .purple,
+        .yellow,
+        .orange,
+        .pink,
+        .black,
+        .mint,
+        .indigo,
+        .teal,
+        .brown,
+    ]
     static var grids: [[Int: [CGPoint]]] = [
     [6: [CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 1), CGPoint(x: 1, y: 0)], 5: [CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 1), CGPoint(x: 0, y: 2), CGPoint(x: 0, y: 3)], 3: [CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 1), CGPoint(x: 1, y: 0), CGPoint(x: 2, y: 0), CGPoint(x: 2, y: 1)], 2: [CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 1), CGPoint(x: 0, y: 2), CGPoint(x: 0, y: 3), CGPoint(x: 1, y: 3)], 4: [CGPoint(x: 0, y: 0), CGPoint(x: 0, y: 1), CGPoint(x: 1, y: 1)], 1: [CGPoint(x: 0, y: 0), CGPoint(x: 1, y: 0), CGPoint(x: 1, y: 1), CGPoint(x: 2, y: 0), CGPoint(x: 2, y: 1)]],
 
@@ -216,14 +230,15 @@ class GridFillGrids {
         for grid in grids {
             var temp = [GridShape]()
             for (k,v) in grid {
+
                 temp.append(
                     .init(
                         shapeCoordinates: v,
                         position: .zero,
                         color: .init(
-                            red: Double.random(in: 0...1),
-                            green: Double.random(in: 0...1),
-                            blue: Double.random(in: 0...1)
+                            red: Double.random(in: 0...0.5),
+                            green: Double.random(in: 0...0.5),
+                            blue: Double.random(in: 0...0.5)
                         ),
                         size: 30
                     )

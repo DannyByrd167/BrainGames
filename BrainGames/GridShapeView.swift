@@ -39,12 +39,12 @@ struct GridShapeView: View {
             ZStack {
                 ForEach(gridShape.shapeCoordinates, id: \.hashValue) { square in
                     ZStack {
-                        Rectangle()
+                        RoundedRectangle(cornerRadius: gridShape.size / 5)
                             .position(gridShape.position + CGPoint(x: CGFloat(square.x) * (gridShape.size), y: CGFloat(square.y) * gridShape.size))
                             .offset(gridShape.offset)
                         
-                        Rectangle()
-                            .strokeBorder(.black)
+                        RoundedRectangle(cornerRadius: gridShape.size / 5)
+                            .strokeBorder(.white)
                             .position(gridShape.position + CGPoint(x: CGFloat(square.x) * (gridShape.size), y: CGFloat(square.y) * gridShape.size))
                             .offset(gridShape.offset)
                     }

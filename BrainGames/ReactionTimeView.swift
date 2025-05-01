@@ -20,6 +20,8 @@ struct ReactionTimeView: View {
     @State var randomSwitchToGreenSecondsNeeded = Int.random(in: 3...12)
     @State var reactionTime = 0
     
+    @Binding var selectedGame: BrainGame?
+    
     var body: some View {
         ZStack {
             bgColor
@@ -82,6 +84,25 @@ struct ReactionTimeView: View {
                     Spacer()
                 }
             }
+            
+            if gameState != .waitingForGreen && gameState != .reacting {
+                VStack {
+                    HStack {
+                        Button {
+                            selectedGame = .none
+                        } label: {
+                            Image(systemName: "chevron.left")
+                                .foregroundStyle(.black)
+                                .font(.title3)
+                        }
+                        .padding()
+                        
+                        Spacer()
+                    }
+                    
+                    Spacer()
+                }
+            }
         }
         .onReceive(reactionTimer) { _ in
             if gameState == .reacting {
@@ -128,5 +149,5 @@ struct ReactionTimeView: View {
 }
 
 #Preview {
-    ReactionTimeView()
+    ReactionTimeView(selectedGame: .constant(.reactionTime))
 }

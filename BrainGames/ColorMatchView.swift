@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ColorMatchView: View {
+    @Binding var selectedGame: BrainGame?
     @State var difference = 0.3
     @State var colorsData = ViewModel.randomColors(difference: 0.3)
     @State var score: Int = 0
@@ -53,6 +54,23 @@ struct ColorMatchView: View {
                     
                     Spacer()
                 }
+                
+                VStack {
+                    HStack {
+                        Button {
+                            selectedGame = .none
+                        } label: {
+                            Image(systemName: "chevron.left")
+                                .foregroundStyle(.black)
+                                .font(.title3)
+                        }
+                        .padding()
+                        
+                        Spacer()
+                    }
+                    
+                    Spacer()
+                }
             }
         }
     }
@@ -72,5 +90,5 @@ struct ColorMatchView: View {
 }
 
 #Preview {
-    ColorMatchView()
+    ColorMatchView(selectedGame: .constant(.colorMatch))
 }
