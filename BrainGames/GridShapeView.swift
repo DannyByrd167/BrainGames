@@ -7,35 +7,11 @@
 
 import SwiftUI
 
-@Observable
-class GridShape: Identifiable {
-    let id = UUID()
-    var shapeCoordinates: [CGPoint]
-    var position: CGPoint
-    var lastPosition: CGPoint
-    var anchorPoint: CGPoint = .zero
-    var color: Color
-    var size: CGFloat
-    var isSelected = false
-    var offset: CGSize = .zero
-    var isInGrid = false
-
-    
-    init(shapeCoordinates: [CGPoint], position: CGPoint, color: Color, size: CGFloat) {
-        self.shapeCoordinates = shapeCoordinates
-        self.position = position
-        lastPosition = position
-        self.color = color
-        self.size = size
-    }
-}
-
-
 struct GridShapeView: View {
     @Binding var gridShape: GridShape
     
     var body: some View {
-        GeometryReader { proxy in
+        GeometryReader { _ in
             ZStack {
                 ForEach(gridShape.shapeCoordinates, id: \.hashValue) { square in
                     ZStack {

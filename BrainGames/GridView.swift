@@ -27,8 +27,6 @@ struct GridSquare: Identifiable {
 }
 
 struct GridView: View {
-    @Binding var selectedGame: BrainGame?
-    
     @State var grid: [CGPoint: GridSquare] = {
         var tempGrid: [CGPoint: GridSquare] = [:]
         for x in 0..<5 {
@@ -40,12 +38,12 @@ struct GridView: View {
         return tempGrid
     }()
     
-    @State var shapes: [GridShape] = GridFillGrids.shapes.randomElement()!
+    @State var gridFillGrid = GridFillGridsTest()
     
     var body: some View {
         GeometryReader { proxy in
-            let initialPosition: CGPoint = .init(x: proxy.size.width / 6, y: proxy.size.width * 0.15 + proxy.safeAreaInsets.bottom)
             let squareSize = proxy.size.width / 6
+            let initialPosition: CGPoint = .init(x: (proxy.size.width / 2) - 2 * squareSize , y: squareSize)
             
             ZStack {
                 Color.white
@@ -53,17 +51,17 @@ struct GridView: View {
                 
                 ForEach(Array(grid.values), id: \.id) { value in
                     ZStack {
-                        RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius: 15)
                             .fill(value.color)
                         
-                        RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius: 15)
                             .strokeBorder(.white, lineWidth: 1)
                     }
                     .frame(width: squareSize, height: squareSize)
                     .position(initialPosition + (value.relativePosition * squareSize))
                 }
                 
-                ForEach($shapes, id: \.color) { $shape in
+                ForEach($gridFillGrid.grid, id: \.id) { $shape in
                     GridShapeView(gridShape: $shape)
                         .onChange(of: shape.isSelected) { _, isSelected in
                             if !isSelected {
@@ -90,7 +88,7 @@ struct GridView: View {
                             }
                             
                             if checkGridFilled() {
-                                for shape in shapes {
+                                for shape in gridFillGrid.grid {
                                     withAnimation {
                                         shape.size *= 1.1
                                     } completion: {
@@ -108,7 +106,7 @@ struct GridView: View {
                                         }
                                     }
                                     grid = tempGrid
-                                    shapes = GridFillGrids.shapes.randomElement()!
+                                    gridFillGrid.readNext()
                                     updateShapesToMatchGeometryReader(proxy: proxy)
                                     
 
@@ -117,20 +115,12 @@ struct GridView: View {
                         }
                         .zIndex(shape.isSelected ? 1.0 : 0.0)
                 }
-                
-                Button {
-                    selectedGame = .none
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .foregroundStyle(.black)
-                        .font(.title)
-                }
-                .position(x: proxy.size.width * 0.05, y: proxy.size.height * 0.02)
             }
             .onAppear {
                 updateShapesToMatchGeometryReader(proxy: proxy)
             }
         }
+        
     }
     
     func matchShapeToGrid(shape: inout GridShape, squareSize: CGFloat, initialPosition: CGPoint) {
@@ -184,12 +174,12 @@ struct GridView: View {
     }
     
     func checkGridFilled() -> Bool {
-        guard !shapes.isEmpty else {
+        guard !gridFillGrid.grid.isEmpty else {
             return false
         }
         
         var isGridCorrect = true
-        for shape in shapes {
+        for shape in gridFillGrid.grid {
             if !shape.isInGrid {
                 isGridCorrect = false
                 break
@@ -202,7 +192,8 @@ struct GridView: View {
     func updateShapesToMatchGeometryReader(proxy: GeometryProxy) {
         var i = 1
         
-        for shape in shapes {
+        print("Moving \(gridFillGrid.grid.count) shapes")
+        for shape in gridFillGrid.grid {
             var heightProportion: CGFloat {
                 if i < 4 {
                     return 18/32
@@ -231,5 +222,5 @@ struct GridView: View {
 }
 
 #Preview {
-    GridView(selectedGame: .constant(.gridFill))
+    GridView()
 }

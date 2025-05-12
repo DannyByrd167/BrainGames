@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		BFE038322DD1BC2C0045293F /* BetterGridShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFE038312DD1BC2C0045293F /* BetterGridShape.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		BF4197582D8A5C7400BBC00F /* BrainGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BrainGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BFE038312DD1BC2C0045293F /* BetterGridShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterGridShape.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +37,7 @@
 		BF41974F2D8A5C7400BBC00F = {
 			isa = PBXGroup;
 			children = (
+				BFE038312DD1BC2C0045293F /* BetterGridShape.swift */,
 				BF41975A2D8A5C7400BBC00F /* BrainGames */,
 				BF4197592D8A5C7400BBC00F /* Products */,
 			);
@@ -119,6 +125,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFE038322DD1BC2C0045293F /* BetterGridShape.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

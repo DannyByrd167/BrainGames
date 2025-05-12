@@ -11,7 +11,11 @@ import SwiftUI
 struct BrainGamesApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ZStack {
+                ContentView()
+                SingleTouchViewRepresentable()
+            }
+                
         }
     }
 }
